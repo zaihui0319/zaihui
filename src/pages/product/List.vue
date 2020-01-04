@@ -65,7 +65,7 @@ import querystring from "querystring"//系统库，不用加路径
 export default {
     methods:{
 
-        submitHandler(){
+    submitHandler(){
             //提交方法
     let url="http://localhost:6677/product/saveOrUpdate"
     //前端向后台发送请求，完成数据的保存操作
