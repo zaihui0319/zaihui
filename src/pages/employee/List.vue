@@ -81,9 +81,8 @@ import querystring from "querystring"//系统库，不用加路径
 export default {
     methods:{
         submitHandler(){
-            //提交方法
-    let url="http://localhost:6677/waiter/saveOrUpdate"
-    //前端向后台发送请求，完成数据的保存操作
+    //页面数据的更新
+    let url="http://localhost:6677/employee/saveOrUpdate"
     request({
       url,
       method:"post",
@@ -101,8 +100,8 @@ export default {
         type:"success",
         message:request.message
       })
-    })     
-        },
+    })
+    },
         //重载数据
         loadData(){
 //vue实例创建完毕执行操作
@@ -112,29 +111,40 @@ request.get(url).then((response)=>{
   this.employees = response.data  //把查询结果放置到employee中
 })
     },
-        toAddHandler(){//添加
-            this.visible=true;
-            this.title = "录入员工信息"
-        },
+        toAddHandler(){//添加方法
+    this.form={
+      type:"employee"
+    }
+      this.visible = true;
+    },
         closeModalHandler(){//取消方法
             this.visible = false;
         },
         toDeleteHandler(id){
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-        }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
-      })
-        },
-        toUpdataHandler(row){
-            this.title = "修改员工信息"
-            this.visible = true;
-        }
+      }).then(() => {
+        //调用后台，完成删除 
+        let url="http://localhost:6677/employee/deleteById?id="+id;//传参地址方式
+        request.get(url).then((response)=>{
+          //刷新
+          this.loadData();
+          //提示结果
+            this.$message({
+            type: 'success',
+            message: response.message
+          });
+        })
+        
+      })     
+    },
+        toUpdateHandler(row){//修改方法
+    //在模态框显示当前行信息
+      this.form=row;
+      this.visible = true;
+    }
     },
     data(){
         return{

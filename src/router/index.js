@@ -76,7 +76,18 @@ export const constantRoutes = [
   //     }
   //   ]
   // },
-
+  {
+    path: '/order',
+    component: Layout,
+    children: [
+      {
+        path: 'List',
+        name: 'OrderList',
+        component: () => import('@/pages/order/List'),//@=src
+        meta: { title: '订单管理', icon: 'form' }
+      }
+    ]
+  },
   {
     path: '/product',
     component: Layout,
@@ -114,6 +125,18 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/commentr',
+    component: Layout,
+    children: [
+      {
+        path: 'List',
+        name: 'CommentList',
+        component: () => import('@/pages/comment/List'),//@=src
+        meta: { title: '评论管理', icon: 'form' }
+      }
+    ]
+  },
   
   {
     path: '/employee',
@@ -127,6 +150,7 @@ export const constantRoutes = [
       }
     ]
   },
+  
 
 
   // {
